@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using RecipeApp.API.Data;
+using RecipeApp.API.Dtos;
 
 namespace RecipeApp.API.Configurations
 {
@@ -6,7 +8,7 @@ namespace RecipeApp.API.Configurations
     {
         public MapperConfig()
         {
-
+            CreateMap<ApiUserCreateDto, ApiUser>().ReverseMap();
         }
     }
 }
