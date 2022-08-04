@@ -41,10 +41,7 @@ builder.Services.AddIdentityCore<ApiUser>()
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 
-builder.Host.UseSerilog((ctx, lc) =>
-{
-    lc.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration);
-});
+
 
 builder.Services.AddAuthentication(options =>
 {
@@ -70,6 +67,9 @@ builder.Services.AddScoped<IRecipeRepo, RecipeRepo>();
 builder.Services.AddScoped<IIngredientRepo, IngredientRepo>();
 builder.Services.AddScoped<IStepRepo, StepRepo>();
 builder.Services.AddScoped(typeof(IBaseRepo<>), typeof(BaseRepo<>));
+builder.Services.AddScoped<IRecipeService, RecipeService>();
+
+builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration));
 
 var app = builder.Build();
 

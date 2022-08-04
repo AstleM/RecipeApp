@@ -97,6 +97,8 @@ namespace RecipeApp.API.Services
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
+            
+
             return tokenString;
         }
     }
