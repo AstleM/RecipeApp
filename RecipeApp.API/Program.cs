@@ -3,7 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RecipeApp.API.Configurations;
+using RecipeApp.API.Contracts.Repos;
+using RecipeApp.API.Contracts.Services;
 using RecipeApp.API.Data;
+using RecipeApp.API.Repos;
+using RecipeApp.API.Services;
 using Serilog;
 using System.Text;
 
@@ -60,6 +64,12 @@ options.TokenValidationParameters = new TokenValidationParameters
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]))
     };
 });
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IRecipeRepo, RecipeRepo>();
+builder.Services.AddScoped<IIngredientRepo, IngredientRepo>();
+builder.Services.AddScoped<IStepRepo, StepRepo>();
+builder.Services.AddScoped(typeof(IBaseRepo<>), typeof(BaseRepo<>));
 
 var app = builder.Build();
 
