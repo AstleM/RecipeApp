@@ -22,8 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Dtos\" />
-    <Folder Include="Contracts\" />
-    <Folder Include="Repos\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
