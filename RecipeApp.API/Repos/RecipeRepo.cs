@@ -29,22 +29,19 @@ namespace RecipeApp.API.Repos
 
         public async Task<Recipe> UpdateRecipeAsync(Recipe recipe)
         {
-            Recipe currentRecipe = await GetByIdAsync(recipe.Id, recipe.UserId);
-            foreach (Ingredient ingredient in currentRecipe.Ingredients)
-            {
-                context.Set<Ingredient>().Remove(ingredient);
-            }
-            foreach (Step step in currentRecipe.Steps)
-            {
-                context.Set<Step>().Remove(step);
-            }
+            List<Step> steps = context.Steps.Where(q => q.RecipeId == recipe.Id).ToList();
+
+            context.Set<Step>().RemoveRange(steps);
+
+            List<Ingredient> ingredients = context.Ingredients.Where(q => q.RecipeId == recipe.Id).ToList();
+
+            context.Set<Ingredient>().RemoveRange(ingredients);
+
             await context.SaveChangesAsync();
 
-            currentRecipe = recipe;
+            await UpdateAsync(recipe);
 
-            await UpdateAsync(currentRecipe);
-
-            return await GetByIdAsync(currentRecipe.Id, currentRecipe.UserId);
+            return await GetByIdAsync(recipe.Id, recipe.UserId);
         }
     }
 }
