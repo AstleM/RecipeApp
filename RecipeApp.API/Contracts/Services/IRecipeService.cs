@@ -8,5 +8,6 @@ namespace RecipeApp.API.Contracts.Services
         Task<IList<RecipeGetDto>> GetAll(string token);
         Task<RecipeGetDetailDto> Get(int id, string token);
         Task<RecipeGetDetailDto> Update(RecipeUpdateDto recipeUpdateDto, int id, string token);
+        Task Delete(int id);
     }
 }

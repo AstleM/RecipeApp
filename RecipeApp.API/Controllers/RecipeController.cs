@@ -126,6 +126,24 @@ namespace RecipeApp.API.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                await recipeService.Delete(id);
+            }
+            catch(Exception ex)
+            {
+                logger.LogError(ex.Message + ex.StackTrace);
+
+                return BadRequest();
+            }
+
+            return NoContent();
+        }
+
         private string GetToken()
         {
             var headers = Request.Headers;

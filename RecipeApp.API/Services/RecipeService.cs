@@ -40,6 +40,11 @@ namespace RecipeApp.API.Services
             return recipeGetDetailDto;
         }
 
+        public async Task Delete(int id)
+        {
+            await recipeRepo.DeleteAsync(id);
+        }
+
         public async Task<RecipeGetDetailDto> Get(int id, string token)
         {
             string userId = getUserIdFromToken(token);
